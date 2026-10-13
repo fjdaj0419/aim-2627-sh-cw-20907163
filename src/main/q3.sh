@@ -5,6 +5,21 @@ set -eu
 input=${1:?需要输入目录}
 output=${2:?需要输出目录}
 
-# TODO：删除下方提示和 exit 77，再填写你的命令。
-printf '%s\n' 'Q3 尚未实现' >&2
-exit 77
+cd "$output" && mkdir -p sentry_ws && cd "$_"
+
+mkdir -p scripts config backup archive
+
+cp "$input/hello.sh" scripts/hello.sh
+cp "$input/robot.conf" config/robot.conf
+cp "$input/robot.conf" backup/robot.conf
+
+
+cp "$input/draft.conf" config/draft.conf
+mv config/draft.conf archive/draft.conf.old
+
+rm -rf tmp
+
+chmod 750 scripts/hello.sh
+chmod 640 config/robot.conf
+
+scripts/hello.sh > "$output/hello-output.txt"

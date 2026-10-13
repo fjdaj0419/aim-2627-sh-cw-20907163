@@ -5,6 +5,21 @@ set -eu
 input=${1:?需要输入目录}
 output=${2:?需要输出目录}
 
-# TODO：删除下方提示和 exit 77，再填写你的命令。
-printf '%s\n' 'Q2 尚未实现' >&2
-exit 77
+cd "$output" && mkdir -p sentry_ws && cd "$_"
+
+(mkdir -p scripts && cd "$_" && touch hello.sh && cat > hello.sh <<'EOF'
+#!/bin/bash
+echo "Hello, AIM Linux!"
+EOF
+)
+
+(mkdir -p config && cd "$_" && touch robot.conf && cat > robot.conf <<'EOF'
+robot=sentry
+mode=training
+log_level=INFO
+EOF
+)
+
+(mkdir -p logs && cd "$_" && touch .keep)
+
+(mkdir -p tmp && cd "$_" && touch scratch.txt)
