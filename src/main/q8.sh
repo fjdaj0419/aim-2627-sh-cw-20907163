@@ -30,9 +30,9 @@ mkdir -p "$output/service"
 
 {
     printf 'pid=%s\n' "$TARGET_PID"
-    printf 'user=%s\n' "$(ps -e -o user= -p "$TARGET_PID" | head -1)"
-    printf 'state=%s\n' "$(ps -e -o state= -p "$TARGET_PID" | head -1)"
-    printf 'command=%s\n' "$(ps -e -o args= -p "$TARGET_PID" | head -1)"
+    printf 'user=%s\n' "$(ps -o user= -p "$TARGET_PID" | head -1)"
+    printf 'state=%s\n' "$(ps -o state= -p "$TARGET_PID" | head -1)"
+    printf 'command=%s\n' "$(ps -o args= -p "$TARGET_PID" | head -1)"
 } > "$output/process.txt"
 
 grep -F " $TARGET_TOKEN" "$WORKER_LOG" | grep -E '^(START|TICK) ' > "$output/collector-sample.log"
